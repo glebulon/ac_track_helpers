@@ -3,6 +3,7 @@ import json
 from math import radians, sin, cos, sqrt
 import numpy as np
 import pandas as pd
+import argparse
 
 # -----------------------------
 # Helpers
@@ -217,7 +218,11 @@ def export_json(path, xy_df, speed_series, analysis, centerline, width_est, star
 # -----------------------------
 
 def main():
-    csv_path = sys.argv[1] if len(sys.argv) > 1 else 'session_20240915_143043_porsche_lap3_v2.csv'
+    parser = argparse.ArgumentParser(description='Process a RaceChrono CSV and export analysis JSON.')
+    parser.add_argument('csv_path', help='Path to RaceChrono CSV export')
+    args = parser.parse_args()
+
+    csv_path = args.csv_path
     df = load_csv(csv_path)
 
     lat_col, lon_col = pick_gps_columns(df)
